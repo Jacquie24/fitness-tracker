@@ -2,15 +2,14 @@ const router = require("express").Router();
 const db = require("../models");
 const path = require("path");
 
-
 // HTML ROUTES
 
 router.get("/exercise", (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/exercise.html"));
+  res.sendFile(path.join(__dirname, "../public/exercise.html"));
 });
 
-router.get("/stats", (req,res) => {
-    res.sendFile(path.join(__dirname, "../public/stats.html"));
+router.get("/stats", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/stats.html"));
 });
 
 // API ROUTES
@@ -38,14 +37,12 @@ router.post("/api/workouts", (req, res) => {
 });
 
 //Update workout by ID
-router.put("api/workouts/:id", (req, res) => {
+router.put("/api/workouts/:id", (req, res) => {
   const workoutId = req.params.id;
 
-  db.Workout.findByIdAndUpdate(workoutId, {
-    $push: { exercises: req.body },
-  })
-    .then((workout) => {
-      res.json(workout);
+  db.Workout.findByIdAndUpdate(workoutId, { $push: { exercises: req.body } })
+    .then((addWorkout) => {
+      res.json(addWorkout);
     })
     .catch((err) => {
       res.json(err);

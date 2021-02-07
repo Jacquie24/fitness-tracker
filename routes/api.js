@@ -25,7 +25,25 @@ router.get("/api/workouts", (req, res) => {
     });
 });
 
-// Add a new workout
+// Get most recent workout (Corresponds to getLastWorkout in /public/api.js)
+router.get("/api/workouts", (req, res) => {
+    db.Workout.findOne()
+    .sort({day: -1})
+    .then(oneWorkout => {
+        res.json(oneWorkout);
+    });
+});
+
+// Get last seven workouts (Corresponds to getWorkoutsInRange in /public/api.js)
+router.get("/api/workouts/range", (req, res) => {
+    db.Workout.find()
+    .sort({day: -1})
+    .then(lastWorkouts => {
+        res.json(lastWorkouts);
+    });
+});
+
+// Add a new workout (Corresponds to createWorkout in /public/api.js)
 router.post("/api/workouts", (req, res) => {
   db.Workout.create(req.body)
     .then((newWorkout) => {
@@ -36,7 +54,7 @@ router.post("/api/workouts", (req, res) => {
     });
 });
 
-//Update workout by ID
+//Update workout by ID (Corresponds to addExercise in /public/api.js)
 router.put("/api/workouts/:id", (req, res) => {
   const workoutId = req.params.id;
 

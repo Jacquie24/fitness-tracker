@@ -20,6 +20,11 @@ const WorkoutSchema = new Schema({
           distance: Number
         }
       ]
+    },
+    {
+      toJSON: {
+        virtuals: true,
+      },
     });
 
     const Workout = mongoose.model("Workout", WorkoutSchema);

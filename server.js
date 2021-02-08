@@ -2,7 +2,7 @@ const express = require("express");
 // const logger = require("morgan");
 const mongoose = require("mongoose");
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 8080
 
 const app = express();
 
@@ -18,6 +18,16 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true
+});
+
+const connection = mongoose.connection;
+
+connection.on("connected", () => {
+    console.log("Mongoose successfully connected.");
+});
+
+connection.on("error", (err) => {
+    console.log("Mongoose connection error: " + err);
 });
 
 // routes

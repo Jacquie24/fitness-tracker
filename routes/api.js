@@ -37,7 +37,7 @@ router.get("/api/workouts", (req, res) => {
 // Get last seven workouts (Corresponds to getWorkoutsInRange in /public/api.js)
 router.get("/api/workouts/range", (req, res) => {
     db.Workout.find()
-    .sort({day: -1})
+    .sort({day: -1}).limit(7)
     .then(lastWorkouts => {
         res.json(lastWorkouts);
     });
